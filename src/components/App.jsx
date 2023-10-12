@@ -2,7 +2,7 @@ import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
 import css from './App.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
 export const App = () => {
   const [contacts, setContacts] =
@@ -12,6 +12,16 @@ export const App = () => {
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
+
+  const normalizeFilter = filter.toLowerCase();
+
+  const visibleContacts = useMemo(
+    () =>
+      contacts.filter(contact =>
+        contact.name.toLowerCase().includes(normalizeFilter)
+      ),
+    [contacts, normalizeFilter]
+  );
 
   const addContact = newContact => {
     const isAlreadyExist = contacts.find(
@@ -30,18 +40,6 @@ export const App = () => {
     setContacts(updateContacts);
   };
 
-  const normalizeFilter = filter.toLowerCase();
-
-  const visibleContacts = () => {
-    console.log(contacts);
-    if (contacts !== '[]') {
-      return contacts.filter(contact =>
-        contact.name.toLowerCase().includes(normalizeFilter)
-      );
-    }
-    return;
-  };
-
   return (
     <>
       <div className={css.container}>
@@ -49,10 +47,7 @@ export const App = () => {
         <ContactForm addContactFn={addContact} />
         <h2>Contacts</h2>
         <Filter filter={filterContact} />
-        <ContactList
-          contacts={visibleContacts()}
-          deleteContact={deleteContact}
-        />
+        <ContactList contacts={visibleContacts} deleteContact={deleteContact} />
       </div>
     </>
   );
