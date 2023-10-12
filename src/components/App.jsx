@@ -32,12 +32,16 @@ export const App = () => {
 
   const normalizeFilter = filter.toLowerCase();
 
-  const visibleContacts = () =>
-    contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizeFilter)
-    );
+  const visibleContacts = () => {
+    console.log(contacts);
+    if (contacts !== '[]') {
+      return contacts.filter(contact =>
+        contact.name.toLowerCase().includes(normalizeFilter)
+      );
+    }
+    return;
+  };
 
-  console.log(visibleContacts());
   return (
     <>
       <div className={css.container}>
