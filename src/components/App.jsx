@@ -23,17 +23,12 @@ export const App = () => {
     }
   }, [contacts, normalizeFilter, filter]);
 
-  console.log(visibleContacts);
-
   const addContact = newContact => {
-    if (contacts !== '[]') {
-      const isAlreadyExist = contacts.find(
-        el => el.name.toLocaleLowerCase() === newContact.name.toLowerCase()
-      );
-      if (isAlreadyExist) return alert('Already Exist');
-      setContacts(prev => [newContact, ...prev]);
+    if (contacts.filter(({ name }) => name === newContact.name).length) {
+      alert(`${newContact.name} is already in contacts.`);
+      return;
     }
-    return;
+    setContacts(prev => [newContact, ...prev]);
   };
 
   const filterContact = filterName => {
