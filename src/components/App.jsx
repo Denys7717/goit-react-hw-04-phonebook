@@ -26,11 +26,14 @@ export const App = () => {
   console.log(visibleContacts);
 
   const addContact = newContact => {
-    const isAlreadyExist = contacts.find(
-      el => el.name.toLocaleLowerCase() === newContact.name.toLowerCase()
-    );
-    if (isAlreadyExist) return alert('Already Exist');
-    setContacts(prev => [newContact, ...prev]);
+    if (contacts !== '[]') {
+      const isAlreadyExist = contacts.find(
+        el => el.name.toLocaleLowerCase() === newContact.name.toLowerCase()
+      );
+      if (isAlreadyExist) return alert('Already Exist');
+      setContacts(prev => [newContact, ...prev]);
+    }
+    return;
   };
 
   const filterContact = filterName => {
