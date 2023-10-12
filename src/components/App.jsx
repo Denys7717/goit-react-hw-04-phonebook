@@ -24,9 +24,11 @@ export const App = () => {
   }, [contacts, normalizeFilter, filter]);
 
   const addContact = newContact => {
-    if (contacts.filter(({ name }) => name === newContact.name).length) {
-      alert(`${newContact.name} is already in contacts.`);
-      return;
+    if (contacts.length) {
+      const isAlreadyExist = contacts.find(
+        el => el.name.toLocaleLowerCase() === newContact.name.toLowerCase()
+      );
+      if (isAlreadyExist) return alert('Already Exist');
     }
     setContacts(prev => [newContact, ...prev]);
   };
