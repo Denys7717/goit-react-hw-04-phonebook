@@ -24,7 +24,7 @@ export const App = () => {
   }, [contacts, normalizeFilter, filter]);
 
   const addContact = newContact => {
-    if (contacts.length) {
+    if (contacts?.length) {
       const isAlreadyExist = contacts.find(
         el => el.name.toLocaleLowerCase() === newContact.name.toLowerCase()
       );
