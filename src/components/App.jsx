@@ -32,15 +32,11 @@ export const App = () => {
 
   const normalizeFilter = filter.toLowerCase();
 
-  const visibleContacts = () => {
-    if (contacts.length > 0) {
-      console.log(contacts.length);
-      return contacts.filter(contact =>
-        contact.name.toLowerCase().includes(normalizeFilter)
-      );
-    }
-    return;
-  };
+  const visibleContacts = () =>
+    contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizeFilter)
+    );
+
   console.log(visibleContacts());
   return (
     <>
