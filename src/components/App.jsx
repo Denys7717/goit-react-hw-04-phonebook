@@ -21,7 +21,9 @@ export const App = () => {
     setContacts(prev => [newContact, ...prev]);
   };
 
-  const filterContact = filterName => setFilter(filterName);
+  const filterContact = filterName => {
+    setFilter(filterName);
+  };
 
   const deleteContact = id => {
     const updateContacts = contacts.filter(contact => contact.id !== id);
@@ -29,9 +31,17 @@ export const App = () => {
   };
 
   const normalizeFilter = filter.toLowerCase();
-  const visibleContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(normalizeFilter)
-  );
+
+  const visibleContacts = () => {
+    if (contacts.length > 0) {
+      console.log(contacts.length);
+      return contacts.filter(contact =>
+        contact.name.toLowerCase().includes(normalizeFilter)
+      );
+    }
+    return;
+  };
+  console.log(visibleContacts());
   return (
     <>
       <div className={css.container}>
@@ -39,7 +49,10 @@ export const App = () => {
         <ContactForm addContactFn={addContact} />
         <h2>Contacts</h2>
         <Filter filter={filterContact} />
-        <ContactList contacts={visibleContacts} deleteContact={deleteContact} />
+        <ContactList
+          contacts={visibleContacts()}
+          deleteContact={deleteContact}
+        />
       </div>
     </>
   );

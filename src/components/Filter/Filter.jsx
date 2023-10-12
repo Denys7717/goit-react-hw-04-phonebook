@@ -3,6 +3,7 @@ import css from './Filter.module.css';
 
 const Filter = ({ filter }) => {
   const idFilter = nanoid();
+
   const findContact = event => {
     filter(event.target.value);
   };
