@@ -15,13 +15,15 @@ export const App = () => {
 
   const normalizeFilter = filter.toLowerCase();
 
-  const visibleContacts = useMemo(
-    () =>
-      contacts.filter(contact =>
+  const visibleContacts = useMemo(() => {
+    if (filter !== '') {
+      return contacts.filter(contact =>
         contact.name.toLowerCase().includes(normalizeFilter)
-      ),
-    [contacts, normalizeFilter]
-  );
+      );
+    }
+  }, [contacts, normalizeFilter, filter]);
+
+  console.log(visibleContacts);
 
   const addContact = newContact => {
     const isAlreadyExist = contacts.find(
@@ -46,8 +48,11 @@ export const App = () => {
         <h1>Phonebook</h1>
         <ContactForm addContactFn={addContact} />
         <h2>Contacts</h2>
-        <Filter filter={filterContact} />
-        <ContactList contacts={visibleContacts} deleteContact={deleteContact} />
+        <Filter filter={filterContact} />{' '}
+        <ContactList
+          contacts={visibleContacts || contacts}
+          deleteContact={deleteContact}
+        />
       </div>
     </>
   );
