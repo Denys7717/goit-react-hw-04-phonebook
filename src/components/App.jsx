@@ -11,7 +11,7 @@ export const App = () => {
 
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts, contacts.length]);
+  }, [contacts]);
 
   const addContact = newContact => {
     const isAlreadyExist = contacts.find(
