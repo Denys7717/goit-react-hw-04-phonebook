@@ -6,7 +6,7 @@ import { useEffect, useState, useMemo } from 'react';
 
 export const App = () => {
   const [contacts, setContacts] =
-    useState(() => JSON.parse(localStorage.getItem('contacts'))) ?? [];
+    useState(() => JSON.parse(localStorage.getItem('contacts'))) ?? null;
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
@@ -28,7 +28,11 @@ export const App = () => {
   }, [contacts, normalizeFilter, filter]);
 
   const addContact = newContact => {
-    if (contacts.filter(({ name }) => name === newContact.name).length) {
+    console.log(newContact);
+    if (
+      contacts &&
+      contacts.filter(({ name }) => name === newContact.name).length
+    ) {
       alert(`${newContact.name} is already in contacts.`);
       return;
     }
