@@ -6,7 +6,7 @@ import { useEffect, useState, useMemo } from 'react';
 
 export const App = () => {
   const [contacts, setContacts] =
-    useState(() => JSON.parse(localStorage.getItem('contacts'))) ?? null;
+    useState(() => JSON.parse(localStorage.getItem('contacts'))) ?? [];
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
@@ -28,7 +28,6 @@ export const App = () => {
   }, [contacts, normalizeFilter, filter]);
 
   const addContact = newContact => {
-    console.log(newContact);
     if (
       contacts &&
       contacts.filter(({ name }) => name === newContact.name).length
@@ -38,6 +37,7 @@ export const App = () => {
     }
     setContacts(prev => [newContact, ...prev]);
   };
+
   const deleteContact = id => {
     const updateContacts = contacts.filter(contact => contact.id !== id);
     setContacts(updateContacts);
