@@ -15,6 +15,10 @@ export const App = () => {
 
   const normalizeFilter = filter.toLowerCase();
 
+  const filterContact = filterName => {
+    setFilter(filterName);
+  };
+
   const visibleContacts = useMemo(() => {
     if (filter !== '') {
       return contacts.filter(contact =>
@@ -24,13 +28,12 @@ export const App = () => {
   }, [contacts, normalizeFilter, filter]);
 
   const addContact = newContact => {
+    if (contacts.filter(({ name }) => name === newContact.name).length) {
+      alert(`${newContact.name} is already in contacts.`);
+      return;
+    }
     setContacts(prev => [newContact, ...prev]);
   };
-
-  const filterContact = filterName => {
-    setFilter(filterName);
-  };
-
   const deleteContact = id => {
     const updateContacts = contacts.filter(contact => contact.id !== id);
     setContacts(updateContacts);
