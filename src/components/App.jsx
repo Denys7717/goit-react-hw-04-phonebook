@@ -28,10 +28,7 @@ export const App = () => {
   }, [contacts, normalizeFilter, filter]);
 
   const addContact = newContact => {
-    if (
-      contacts &&
-      contacts.filter(({ name }) => name === newContact.name).length
-    ) {
+    if (contacts.filter(({ name }) => name === newContact.name).length) {
       alert(`${newContact.name} is already in contacts.`);
       return;
     }
