@@ -5,8 +5,9 @@ import css from './App.module.css';
 import { useEffect, useState, useMemo } from 'react';
 
 export const App = () => {
-  const [contacts, setContacts] =
-    useState(() => JSON.parse(localStorage.getItem('contacts'))) ?? [];
+  const [contacts, setContacts] = useState(
+    () => JSON.parse(localStorage.getItem('contacts')) ?? []
+  );
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
