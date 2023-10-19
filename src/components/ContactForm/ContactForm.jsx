@@ -12,8 +12,16 @@ const ContactForm = ({ addContactFn }) => {
   const setData = event => {
     event.preventDefault();
     const { name, value } = event.target;
-    if (name === 'name') SetName(value);
-    if (name === 'number') SetNumber(value);
+    switch (name) {
+      case 'name':
+        SetName(value);
+        break;
+      case 'number':
+        SetNumber(value);
+        break;
+      default:
+        break;
+    }
   };
 
   const addContact = event => {

@@ -29,7 +29,11 @@ export const App = () => {
   }, [contacts, normalizeFilter, filter]);
 
   const addContact = newContact => {
-    if (contacts.filter(({ name }) => name === newContact.name).length) {
+    if (
+      contacts.find(
+        ({ name }) => name.toLowerCase() === newContact.name.toLowerCase()
+      )
+    ) {
       alert(`${newContact.name} is already in contacts.`);
       return;
     }
